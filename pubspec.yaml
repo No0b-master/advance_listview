@@ -1,0 +1,21 @@
+name: advance_listview
+description: A powerful and flexible paginated ListView widget for Flutter with built-in search, multiple load modes, and robust error handling.
+version: 1.0.0
+homepage: https://github.com/yourusername/advance_listview
+repository: https://github.com/yourusername/advance_listview
+issue_tracker: https://github.com/yourusername/advance_listview/issues
+documentation: https://github.com/yourusername/advance_listview/blob/main/README.md
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
