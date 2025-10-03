@@ -42,7 +42,7 @@ class AdvanceListView extends StatefulWidget {
 
   /// Custom load more button builder
   final Widget Function(VoidCallback onPressed, bool isLoading)?
-  loadMoreButtonBuilder;
+      loadMoreButtonBuilder;
 
   /// API response format (direct array or wrapped object)
   final ResponseFormat responseFormat;
@@ -88,7 +88,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
   int _page = 1;
   final ScrollController _controller = ScrollController();
   String _searchQuery = "";
-  AdvanceListViewException? _lastError;
+  AdvanceListViewException? lastError;
 
   @override
   void initState() {
@@ -98,7 +98,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
     if (widget.loadMode == LoadMode.auto) {
       _controller.addListener(() {
         if (_controller.position.pixels >=
-            _controller.position.maxScrollExtent - 100 &&
+                _controller.position.maxScrollExtent - 100 &&
             !_isLoading &&
             _hasMore) {
           _fetchData();
@@ -112,7 +112,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
 
     setState(() {
       _isLoading = true;
-      _lastError = null;
+      lastError = null;
     });
 
     try {
@@ -143,7 +143,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
         } else {
           uri = uri.replace(
             queryParameters:
-            requestParams.map((k, v) => MapEntry(k, v.toString())),
+                requestParams.map((k, v) => MapEntry(k, v.toString())),
           );
           response = await http.get(uri, headers: headers);
         }
@@ -184,7 +184,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               'Object with "${widget.statusKey}" and "${widget.dataKey}" keys',
               decoded.runtimeType.toString(),
               message:
-              'Expected response to be an object, but got ${decoded.runtimeType}',
+                  'Expected response to be an object, but got ${decoded.runtimeType}',
             );
           }
 
@@ -194,7 +194,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               'Object with "${widget.statusKey}" key',
               'Object without "${widget.statusKey}" key',
               message:
-              'Response missing required "${widget.statusKey}" key. Available keys: ${decoded.keys.join(", ")}',
+                  'Response missing required "${widget.statusKey}" key. Available keys: ${decoded.keys.join(", ")}',
             );
           }
 
@@ -205,7 +205,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               response.statusCode,
               decoded,
               message:
-              'API returned unsuccessful status: ${widget.statusKey} = $status',
+                  'API returned unsuccessful status: ${widget.statusKey} = $status',
             );
           }
 
@@ -215,7 +215,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               'Object with "${widget.dataKey}" key',
               'Object without "${widget.dataKey}" key',
               message:
-              'Response missing required "${widget.dataKey}" key. Available keys: ${decoded.keys.join(", ")}',
+                  'Response missing required "${widget.dataKey}" key. Available keys: ${decoded.keys.join(", ")}',
             );
           }
 
@@ -226,7 +226,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               'Array',
               rawData.runtimeType.toString(),
               message:
-              '"${widget.dataKey}" must be an array, but got ${rawData.runtimeType}',
+                  '"${widget.dataKey}" must be an array, but got ${rawData.runtimeType}',
             );
           }
 
@@ -243,7 +243,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
                     'Array of objects',
                     'Array containing ${item.runtimeType}',
                     message:
-                    '"${widget.dataKey}" must contain only objects, but found ${item.runtimeType}',
+                        '"${widget.dataKey}" must contain only objects, but found ${item.runtimeType}',
                   );
                 }
               }),
@@ -264,7 +264,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
               'Array',
               decoded.runtimeType.toString(),
               message:
-              'Expected response to be an array, but got ${decoded.runtimeType}',
+                  'Expected response to be an array, but got ${decoded.runtimeType}',
             );
           }
 
@@ -280,7 +280,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
                     'Array of objects',
                     'Array containing ${item.runtimeType}',
                     message:
-                    'Response array must contain only objects, but found ${item.runtimeType}',
+                        'Response array must contain only objects, but found ${item.runtimeType}',
                   );
                 }
               }),
@@ -377,7 +377,7 @@ class _AdvanceListViewState extends State<AdvanceListView> {
 
   void _handleError(AdvanceListViewException exception) {
     setState(() {
-      _lastError = exception;
+      lastError = exception;
     });
     debugPrint(exception.toString());
     widget.onError?.call(exception);
@@ -430,22 +430,22 @@ class _AdvanceListViewState extends State<AdvanceListView> {
             child: widget.loadMoreButtonBuilder != null
                 ? widget.loadMoreButtonBuilder!(_fetchData, _isLoading)
                 : ElevatedButton(
-              onPressed: _isLoading ? null : _fetchData,
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
-              child: _isLoading
-                  ? const SizedBox(
-                width: 18,
-                height: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
-                  : const Text("Load More"),
-            ),
+                    onPressed: _isLoading ? null : _fetchData,
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text("Load More"),
+                  ),
           ),
       ],
     );

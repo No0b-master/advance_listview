@@ -5,10 +5,10 @@ class AdvanceListViewException implements Exception {
   final StackTrace? stackTrace;
 
   AdvanceListViewException(
-      this.message, {
-        this.originalError,
-        this.stackTrace,
-      });
+    this.message, {
+    this.originalError,
+    this.stackTrace,
+  });
 
   @override
   String toString() => 'AdvanceListViewException: $message';
@@ -20,19 +20,20 @@ class ApiException extends AdvanceListViewException {
   final dynamic responseBody;
 
   ApiException(
-      this.statusCode,
-      this.responseBody, {
-        String? message,
-        dynamic originalError,
-        StackTrace? stackTrace,
-      }) : super(
-    message ?? 'API Error ($statusCode)',
-    originalError: originalError,
-    stackTrace: stackTrace,
-  );
+    this.statusCode,
+    this.responseBody, {
+    String? message,
+    dynamic originalError,
+    StackTrace? stackTrace,
+  }) : super(
+          message ?? 'API Error ($statusCode)',
+          originalError: originalError,
+          stackTrace: stackTrace,
+        );
 
   @override
-  String toString() => 'ApiException($statusCode): $message\nResponse: $responseBody';
+  String toString() =>
+      'ApiException($statusCode): $message\nResponse: $responseBody';
 }
 
 /// Exception thrown when response format is invalid
@@ -41,16 +42,16 @@ class InvalidResponseFormatException extends AdvanceListViewException {
   final String actualFormat;
 
   InvalidResponseFormatException(
-      this.expectedFormat,
-      this.actualFormat, {
-        String? message,
-        dynamic originalError,
-        StackTrace? stackTrace,
-      }) : super(
-    message ?? 'Invalid response format',
-    originalError: originalError,
-    stackTrace: stackTrace,
-  );
+    this.expectedFormat,
+    this.actualFormat, {
+    String? message,
+    dynamic originalError,
+    StackTrace? stackTrace,
+  }) : super(
+          message ?? 'Invalid response format',
+          originalError: originalError,
+          stackTrace: stackTrace,
+        );
 
   @override
   String toString() =>
@@ -60,14 +61,10 @@ class InvalidResponseFormatException extends AdvanceListViewException {
 /// Exception thrown when network request fails
 class NetworkException extends AdvanceListViewException {
   NetworkException(
-      String message, {
-        dynamic originalError,
-        StackTrace? stackTrace,
-      }) : super(
-    message,
-    originalError: originalError,
-    stackTrace: stackTrace,
-  );
+    super.message, {
+    super.originalError,
+    super.stackTrace,
+  });
 
   @override
   String toString() => 'NetworkException: $message';
@@ -76,14 +73,10 @@ class NetworkException extends AdvanceListViewException {
 /// Exception thrown when JSON parsing fails
 class JsonParsingException extends AdvanceListViewException {
   JsonParsingException(
-      String message, {
-        dynamic originalError,
-        StackTrace? stackTrace,
-      }) : super(
-    message,
-    originalError: originalError,
-    stackTrace: stackTrace,
-  );
+    super.message, {
+    super.originalError,
+    super.stackTrace,
+  });
 
   @override
   String toString() => 'JsonParsingException: $message';
