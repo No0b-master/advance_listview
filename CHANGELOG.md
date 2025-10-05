@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.0.2
 
 * Stable release
-* -  Removed Unused variables
+* -  Updated URL for documentation
